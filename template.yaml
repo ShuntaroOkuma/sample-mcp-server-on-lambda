@@ -1,0 +1,47 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  A serverless application with two Lambda functions: an MCP server and a sample function.
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 256
+
+Resources:
+  MCPServerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: test-mcp-server # この行を追加してLambda関数名を指定
+      PackageType: Image
+      Architectures:
+        - x86_64
+      ImageConfig:
+        Command: ["src.mcp_server.handler"]
+      Policies:
+        # この関数がSampleFunctionを呼び出すことを許可する
+        - LambdaInvokePolicy:
+            FunctionName: !Ref SampleFunction
+      FunctionUrlConfig:
+        AuthType: NONE
+        Cors:
+          AllowOrigins:
+            - "*"
+    Metadata:
+      DockerTag: mcp-server-v1
+      DockerContext: ./
+      Dockerfile: Dockerfile
+
+  SampleFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: test-sample-function # この行を追加してLambda関数名を指定
+      PackageType: Image
+      Architectures:
+        - x86_64
+      ImageConfig:
+        Command: ["src.sample_function.handler"]
+    Metadata:
+      DockerTag: sample-function-v1
+      DockerContext: ./
+      Dockerfile: Dockerfile

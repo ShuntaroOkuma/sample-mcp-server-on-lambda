@@ -1,0 +1,16 @@
+{
+  "version": "2.0",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "requestContext": {
+    "http": {
+      "method": "POST",
+      "path": "/"
+    },
+    "elb": {
+      "targetGroupArn": "console-test"
+    }
+  },
+  "body": "{\"jsonrpc\":\"2.0\",\"method\":\"tools/call\",\"params\":{\"name\":\"invokeLambdaSync\",\"arguments\":{\"function_name\":\"test-sample-function\",\"payload\":{\"name\":\"Console Test\"}}},\"id\":\"1\"}"
+}
