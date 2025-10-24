@@ -22,6 +22,9 @@ Resources:
         # この関数がSampleFunctionを呼び出すことを許可する
         - LambdaInvokePolicy:
             FunctionName: !Ref SampleFunction
+      Events:
+        HttpApi:
+          Type: HttpApi
       FunctionUrlConfig:
         AuthType: NONE
         Cors:

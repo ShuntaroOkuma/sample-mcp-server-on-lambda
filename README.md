@@ -65,3 +65,11 @@ sam deploy
    -H 'Content-Type: application/json' \
    -d '{"jsonrpc":"2.0","method":"tools/call","params":{"name":"invokeLambdaSync","arguments":{"function_name":"test-sample-function","payload":{"name":"From curl"}}},"id":"curl-test-1"}'
 ```
+
+- HTTP 経由で MCP サーバーを呼び出す
+
+HTTP URL（https://xxxxx.execute-api.ap-northeast-1.amazonaws.com/）はデプロイした API Gateway の画面から確認できます。適宜変更して実行してください。
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"tools/call","params":{"name":"invokeLambdaSync","arguments":{"function_name":"test-sample-function","payload":{"name":"Local geagaTest"}}},"id":"1"}' https://xxxxx.execute-api.ap-northeast-1.amazonaws.com
+```
